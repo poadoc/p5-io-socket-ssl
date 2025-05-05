@@ -201,7 +201,7 @@ if ( defined &Net::SSLeay::CTX_set_min_proto_version
 my %DEFAULT_SSL_ARGS = (
     SSL_check_crl => 0,
     # TLS 1.1 and lower are deprecated with RFC 8996
-    SSL_version => 'SSLv23:!TLSv1:!TLSv1_1:!SSLv3:!SSLv2',
+    SSL_version => '',
     SSL_verify_callback => undef,
     SSL_verifycn_scheme => undef,  # fallback cn verification
     SSL_verifycn_publicsuffix => undef,  # fallback default list verification
@@ -2457,7 +2457,7 @@ sub new {
 
     my $ssl_op = $DEFAULT_SSL_OP;
 
-    my $ver;
+    my $ver = '';
     for (split(/\s*:\s*/,$arg_hash->{SSL_version})) {
 	m{^(!?)(?:(SSL(?:v2|v3|v23|v2/3))|(TLSv1(?:_?[123])?))$}i
 	or croak("invalid SSL_version specified");
